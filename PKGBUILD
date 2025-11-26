@@ -1,34 +1,76 @@
-pkgname=lgogdownloader-qt
-pkgver=3.18
+# Maintainer: Uncore <contactuncor3@gmail.com>
+pkgname=idescriptor-git
+_pkgname=iDescriptor
+pkgver=r263.6d86243
 pkgrel=1
-pkgdesc="Open source downloader for GOG.com games, with QT5 enabled for solving reCAPTCHA"
-url="https://sites.google.com/site/gogdownloader/"
-arch=(x86_64 i686 pentium4)
-license=(WTFPL)
-depends=(boost-libs jsoncpp tinyxml2 rhash tidy qt6-webengine)
-makedepends=(help2man cmake boost)
-provides=(lgogdownloader)
-conflicts=(lgogdownloader lgogdownloader-qt5 lgogdownloader-qt6)
-source=("https://github.com/Sude-/lgogdownloader/releases/download/v${pkgver}/lgogdownloader-${pkgver}.tar.gz")
-sha256sums=('1974f09cb0e0cdfed536937335488548addd92e5c654f4229ac22594a22f8ae0')
+pkgdesc="A free, open-source, and cross-platform iDevice management tool."
+arch=('x86_64')
+url="https://github.com/iDescriptor/iDescriptor"
+license=('AGPL3-or-later')
+provides=("$pkgname")
+depends=(
+    'libimobiledevice>=1.4.0'
+    'libtatsu>=1.0.5'
+    'libimobiledevice-glue'
+    'libplist'
+    'usbmuxd'
+    'libusbmuxd'
+    'openssl'
+    'libssh'
+    'libusb'
+    'pugixml'
+    'qrencode'
+    'libheif'
+    'libzip'
+    'qt6-base'
+    'qt6-multimedia'
+    'qt6-declarative'
+    'qt6-serialport'
+    'qt6-positioning'
+    'qt6-location'
+    'qtermwidget'
+    'avahi'
+    'libsecret'
+    'gnome-keyring'
+    'ffmpeg'
+    'ifuse'
+    'gstreamer'
+    'gst-plugins-base-libs'
+    'gst-plugins-good'
+    'gst-plugins-bad'
+    'gst-plugins-ugly'
+    'gst-libav'
+)
+makedepends=(
+    'git'
+    'cmake'
+    'go'
+)
+options=('!debug')
+source=("git+https://github.com/iDescriptor/iDescriptor.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "$_pkgname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
 
 prepare() {
-  cd "${srcdir}/lgogdownloader-${pkgver}"
-  [[ -d build ]] || mkdir build
+  cd "$_pkgname"
+  git submodule update --init --recursive
 }
 
 build() {
-  cd "${srcdir}/lgogdownloader-${pkgver}/build"
-  cmake .. \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+  cd "$_pkgname"
+  cmake -B build -S . \
     -DCMAKE_BUILD_TYPE=Release \
-    -DUSE_QT_GUI=ON
-
-  make
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPACKAGE_MANAGER_MANAGED=ON \
+    -DPACKAGE_MANAGER_HINT=yay/paru
+  cmake --build build
 }
 
 package() {
-  cd "${srcdir}/lgogdownloader-${pkgver}/build"
-  make DESTDIR=$pkgdir install
-  install -Dm644 ../COPYING ${pkgdir}/usr/share/licenses/${pkgname}/COPYING
+  cd "$_pkgname/build"
+  DESTDIR="$pkgdir" cmake --install .
 }
