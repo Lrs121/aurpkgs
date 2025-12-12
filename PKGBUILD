@@ -1,36 +1,27 @@
-# Maintainer: Luke Kuza <luke.kuza@gmail.com>
 pkgname=lubelogger
-pkgver=1.2.1
+altname=lubelog
+pkgver=1.5.5
 pkgrel=1
 pkgdesc="A self-hosted, open-source vehicle service records and maintainence tracker."
 arch=('any')
 url="https://github.com/hargata/lubelog"
 license=('MIT')
-groups=()
+
 depends=('dotnet-runtime' 'aspnet-runtime')
 makedepends=('dotnet-sdk')
-optdepends=()
-provides=()
-conflicts=()
-replaces=()
-backup=()
-options=('!strip')
-install=
-changelog=
-altname=lubelog
-source=(
-    "${altname}-${pkgver}.tar.gz::https://github.com/hargata/lubelog/archive/refs/tags/v${pkgver}.tar.gz"
-    'lubelogger.service'
-    'sysusers'
-    'tmpfiles'
+
+source=("${altname}-${pkgver}.tar.gz::https://github.com/hargata/lubelog/archive/refs/tags/v${pkgver}.tar.gz"
+  'lubelogger.service'
+  'sysusers'
+  'tmpfiles'
 )
-noextract=()
-sha256sums=('9eb4e4635aa3ee571bca3a3db29fae3b926801404ff82ccfc0d98400d324b0e9'
+sha256sums=('8331c3476cfc1026df6e1998a755dbd0065badc37140651198399e1b53e5a933'
             '37b77224dd7e98cf3bb73a606a12da4990143e37ba78109f87706003cfdf427f'
             'a638ea4b0652e78b2f1cbdb46f160c9d5b10e31f09fdd0a64ed80cbf6fb8209d'
             'ca5a4b6b6c2bf761b5e7b767e401e9bf99452eaba078affff8ab65e73ce5baae')
 
-
+backup=()
+options=('!strip')
 prepare() {
     cd "${srcdir}/${altname}-${pkgver}"
 }
