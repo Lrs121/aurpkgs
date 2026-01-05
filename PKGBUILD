@@ -8,7 +8,7 @@ license=('GPL')
 url='https://github.com/LSchallot/JellyRoller'
 depends=()
 makedepends=('rustup')
-source=("${pkgname}-${pkgver}.tar.gz::${url}archive/refs/tags/v${pkgver}.tar.gz")
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
 b2sum=(SKIP)
 
 prepare() {
