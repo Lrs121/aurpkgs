@@ -7,7 +7,7 @@ source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 arch=('x86_64' 'aarch64')
 license=('GPL-2.0')
 depends=('libisoburn' 'dvd+rw-tools')
-makedepends=('cargo')
+makedepends=('cargo' 'clang' 'llvm')
 optdepends=('qrencode' 'rsync')
 b2sums=('b17724927a8b1b540a6967f246c472bdaed857183fdda5fe601dc753344b430ad99271606b179e74505c220e6b60580ca49eed4cc9fd03b5c9ad85c4fd5cfec3')
 
@@ -22,7 +22,8 @@ build() {
 
   export RUSTUP_TOOLCHAIN=stable
   export CARGO_TARGET_DIR=target
-
+  export CC=/sbin/clang
+  export CXX=/sbin/clang++
   cargo build --release --frozen
 }
 
