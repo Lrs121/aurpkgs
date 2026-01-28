@@ -1,0 +1,17 @@
+pkgbase = blue-vault
+	pkgdesc = A production-quality TUI app to manage Blu-ray cold storage archives on Linux
+	pkgver = 0.1.2
+	pkgrel = 1
+	url = https://github.com/ChrisLAS/blue-vault
+	arch = x86_64
+	arch = aarch64
+	license = GPL-2.0
+	makedepends = cargo
+	depends = xorriso
+	depends = growisofs
+	optdepends = qrencode
+	optdepends = rsync
+	source = blue-vault-0.1.2.tar.gz::https://github.com/ChrisLAS/blue-vault/archive/v0.1.2.tar.gz
+	b2sums = b17724927a8b1b540a6967f246c472bdaed857183fdda5fe601dc753344b430ad99271606b179e74505c220e6b60580ca49eed4cc9fd03b5c9ad85c4fd5cfec3
+
+pkgname = blue-vault
