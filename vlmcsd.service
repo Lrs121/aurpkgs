@@ -1,0 +1,16 @@
+[Unit]
+Description=Volume License Management Service
+Documentation=https://github.com/tfslabs/vlmcsd/wiki
+After=network.target
+StartLimitBurst=3
+StartLimitIntervalSec=60
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/vlmcsd -P 1688 -H 26100 -C 1033 -l /var/log/vlmcsd.log -T1 -v -D
+TimeoutStartSec=0
+RestartSec=2
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
